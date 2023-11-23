@@ -204,6 +204,19 @@ namespace datastructures_mounir
     }
 
     template <typename T>
+    bool operator== (const Vector<T> &vector1, const Vector<T> &vector2)
+    {
+        if (vector1.length != vector2.length)
+            return false;
+        for (int i = 0; i < vector1.length; i++) //vector2.length should also work.
+        {
+            if (vector1[i] != vector2[i])
+                return false;
+        }
+        return true;
+    }
+
+    template <typename T>
     std::ostream &operator<< (std::ostream& outStream, const Vector<T> &vector) 
     {
         if (vector.length > 0)

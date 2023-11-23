@@ -72,6 +72,14 @@ namespace datastructures_mounir
     {
         list.popBack();
     }
+
+    template <typename T>
+    bool operator== (const Stack<T> &stack1, const Stack<T> &stack2)
+    {
+        if (stack1.getLength() != stack2.getLength())
+            return false;
+        return stack1.list == stack2.list;
+    }
 }
 
 #endif

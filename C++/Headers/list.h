@@ -5,6 +5,10 @@
 
 namespace datastructures_mounir
 {
+    template <typename T> class ListNode;
+    template <typename T> 
+    bool operator== (const ListNode<T> &node1, const ListNode<T> &node2);
+
     template <typename T>
     class ListNode
     {
@@ -18,11 +22,15 @@ namespace datastructures_mounir
         void setData(const T &newData);
         void setPrevious(ListNode<T> *newPrevious);
         void setNext(ListNode<T> *newNext);
+        friend bool operator== <T>(const ListNode<T> &node1, const ListNode<T> &node2);
     private:
         T data;
         ListNode<T> *previous;
         ListNode<T> *next;
     };
+    
+    template <typename T> class List;
+    template <typename T> bool operator== (const List<T> &list1, const List<T> &list2);
 
     template <typename T>
     class List
@@ -78,7 +86,8 @@ namespace datastructures_mounir
         //Returns true if the deletion was successful, false
         //otherwise.
         bool erase(ListNode<T> *location);
-    private:
+        friend bool operator== <T>(const List<T> &list1, const List<T> &list2);
+    public:
         ListNode<T> *head;
         ListNode<T> *tail;
         int length;

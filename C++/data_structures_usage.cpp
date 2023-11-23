@@ -12,8 +12,12 @@ void printList(const List<T> &list);
 template <typename T>
 void printStack(Stack<T> &stack);
 
+template <typename T>
+void printQueue(Queue<T> &queue);
+
 int main()
 {
+    std::cout << "------------------------------" << std::endl;
     /* std::cout << "Vector Testing Begin." << std::endl << std::endl;
     Vector<int> vector1;
     std::cout << "Is Vector Empty: " << vector1.isEmpty() << std::endl;
@@ -158,20 +162,47 @@ int main()
     std::cout << "Stack length: " << stack.getLength() << std::endl;
     printStack(stack);
 
-    std::cout << "Stack Testing End." << std::endl << std::endl;
+    std::cout << std::endl << "Stack Testing End." << std::endl << std::endl;
 
     std::cout << "Queue Testing Begin." << std::endl << std::endl;
 
+    Queue<int> queue;
+    std::cout << "Is Queue empty: " << queue.isEmpty() << std::endl;
+    std::cout << "Queue Length: " << queue.getLength() << std::endl;
+    printQueue(queue);
 
-    std::cout << "Queue Testing End." << std::endl << std::endl;
+    queue.pushBack(1);
+    queue.pushBack(2);
+    queue.pushBack(3);
+
+    std::cout << "After inserting 3 elements." << std::endl;
+    std::cout << "Queue Length: " << queue.getLength() << std::endl;
+    printQueue(queue);
+
+    std::cout << "After printing the queue." << std::endl;
+    std::cout << "Queue Length: " << queue.getLength() << std::endl;
+    printQueue(queue);
+
+    std::cout << "printing the stack involves the functions top and pop." << std::endl;
+    queue.clear();
+    std::cout << "After clearing the queue." << std::endl;
+    std::cout << "Queue Length: " << queue.getLength() << std::endl;
+    printQueue(queue);
+
+    std::cout << std::endl << "Queue Testing End." << std::endl << std::endl;
+
+    
 
     std::cout << "End of program." << std::endl;
+    std::cout << "------------------------------" << std::endl;
     return 0;
 }
 
 template <typename T>
 void printVector(const Vector<T> &vector)
 {
+    //Since I am reading an object not a pointer.
+    //vector could never be NULL or nullptr.
     std::cout << "Vector Content: ";
     if (vector.getLength() == 0)
         std::cout << "Empty.";
@@ -183,6 +214,8 @@ void printVector(const Vector<T> &vector)
 template <typename T>
 void printList(List<T> &list)
 {
+    //Since I am reading an object not a pointer.
+    //list could never be NULL or nullptr.
     std::cout << "List Content: ";
     if (list.getLength() == 0)
         std::cout << "Empty.";
@@ -206,6 +239,8 @@ void printList(List<T> &list)
 template <typename T>
 void printStack(Stack<T> &stack)
 {
+    //Since I am reading an object not a pointer.
+    //stack could never be NULL or nullptr.
     std::cout << "Stack Content: ";
     int length = stack.getLength();
     if (length == 0)
@@ -222,11 +257,41 @@ void printStack(Stack<T> &stack)
 
         for (int i = 0; i < length - 1; i++)
             std::cout << stackContent[i] << " ";
-        std::cout << stackContent[length - 1] << std::endl;
+        std::cout << stackContent[length - 1] << ".";
 
         for (int i = 0; i < length; i++)
             stack.push(stackContent[length - 1 - i]);
         delete []stackContent;
+    }
+    std::cout << std::endl;
+}
+
+template <typename T>
+void printQueue(Queue<T> &queue)
+{
+    //Since I am reading an object not a pointer.
+    //queue could never be NULL or nullptr.
+    std::cout << "Queue Content: ";
+    int length = queue.getLength();
+    if (length == 0)
+        std::cout << "Empty.";
+    else
+    {
+        T *queueContent = new T[length];
+        //Extracting the queue content.
+        for (int i = 0; i < length; i++)
+        {
+            queueContent[i] = queue.front();
+            queue.popFront();
+        }
+
+        for (int i = 0; i < length - 1; i++)
+            std::cout << queueContent[i] << " ";
+        std::cout << queueContent[length - 1] << ".";
+
+        for (int i = 0; i < length; i++)
+            queue.pushBack(queueContent[i]);
+        delete []queueContent;
     }
     std::cout << std::endl;
 }

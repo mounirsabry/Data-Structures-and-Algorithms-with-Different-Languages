@@ -73,6 +73,14 @@ namespace datastructures_mounir
     {
         list.popFront();
     }
+
+    template <typename T>
+    bool operator== (const Queue<T> &queue1, const Queue<T> &queue2)
+    {
+        if (queue1.getLength() != queue1.getLength())
+            return false;
+        return queue1.list == queue2.list;
+    }
 }
 
 #endif

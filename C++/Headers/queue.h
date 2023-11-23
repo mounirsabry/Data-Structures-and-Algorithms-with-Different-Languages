@@ -4,6 +4,10 @@
 
 namespace datastructures_mounir
 {
+    template <typename T> class Queue;
+    template <typename T>
+    bool operator== (const Queue<T> &queue1, const Queue<T> &queue2);
+
     template <typename T>
     class Queue
     {
@@ -19,6 +23,7 @@ namespace datastructures_mounir
         T &back() const;
         void pushBack(const T &item);
         void popFront();
+        friend bool operator== <T>(const Queue<T> &queue1, const Queue<T> &queue2);
     private:
         List<T> list;
     };

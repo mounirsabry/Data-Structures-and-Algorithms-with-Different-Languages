@@ -4,6 +4,10 @@
 
 namespace datastructures_mounir
 {
+    template <typename T> class Stack;
+    template <typename T>
+    bool operator== (const Stack<T> &stack1, const Stack<T> &stack2);
+
     template <typename T>
     class Stack
     {
@@ -19,6 +23,7 @@ namespace datastructures_mounir
         T topConst() const;
         void push(const T &item);
         void pop();
+        friend bool operator== <T>(const Stack<T> &stack1, const Stack<T> &stack2);
     private:
         List<T> list;
     };

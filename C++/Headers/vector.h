@@ -7,8 +7,11 @@
 namespace datastructures_mounir
 {
     template <typename T> class Vector;
-    template <typename T> class Iterator;
-    template <typename T> std::ostream& operator<<( std::ostream&, const Vector<T> &vector);
+
+    template <typename T> 
+    std::ostream& operator<<( std::ostream&, const Vector<T> &vector);
+    template <typename T> 
+    bool operator ==(const Vector<T> &vector1, const Vector<T> &vector2);
 
     template <typename T>
     class Vector
@@ -53,6 +56,7 @@ namespace datastructures_mounir
         //Returns true if the deletion was successful, false
         //otherwise.
         bool erase(int index);
+        friend bool operator == <T>(const Vector<T> &vector1, const Vector<T> &vector2);
         friend std::ostream& operator<< <T>(std::ostream&, const Vector<T> &vector);
     private:
         T *array;

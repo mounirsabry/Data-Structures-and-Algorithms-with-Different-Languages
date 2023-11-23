@@ -60,6 +60,16 @@ namespace datastructures_mounir
     }
 
     template <typename T>
+    bool operator== (const ListNode<T> &node1, const ListNode<T> &node2)
+    {
+        if (node1.getPrevious() != node2.getPrevious()
+        ||  node2.getData() != node2.getData()
+        ||  node1.getNext() != node2.getNext())
+            return false;
+        return true;
+    }
+
+    template <typename T>
     List<T>::List()
         : head(NULL), tail(NULL), length(0)
     {}
@@ -267,6 +277,23 @@ namespace datastructures_mounir
         
         delete location;
         length--;
+        return true;
+    }
+
+    template <typename T>
+    bool operator== (const List<T> &list1, const List<T> &list2)
+    {
+        if (list1.length != list2.length)
+            return false;
+        ListNode<T> *iter1 = list1.begin();
+        ListNode<T> *iter2 = list2.begin();
+        for (int i = 0; i < list1.length; i++) //list2.length should also work.
+        {
+            if (iter1->getData() != iter2->getData())
+                return false;
+            iter1 = iter1->getNext();
+            iter2 = iter2->getNext();
+        }
         return true;
     }
 }
