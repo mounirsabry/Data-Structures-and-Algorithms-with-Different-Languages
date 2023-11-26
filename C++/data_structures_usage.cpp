@@ -18,6 +18,7 @@ void printQueue(Queue<T> &queue);
 int main()
 {
     std::cout << "------------------------------" << std::endl;
+    //Vector Version 1.0.
     /* std::cout << "Vector Testing Begin." << std::endl << std::endl;
     Vector<int> vector1;
     std::cout << "Is Vector Empty: " << vector1.isEmpty() << std::endl;
@@ -69,8 +70,74 @@ int main()
     std::cout << vector1.getCapacity() << " " << vector1.getLength() << std::endl;
 
     std::cout << "Vector Testing End." << std::endl << std::endl; */
+    //Vector Version 2.0.
+    /*
+    std::cout << "Vector Testing Begin." << std::endl << std::endl;
 
-   /*  std::cout << "List Testing Begin." << std::endl << std::endl;
+    Vector<int> vector;
+    std::cout << "Is vector empty: " << vector.isEmpty() << std::endl;
+    std::cout << "Vector Length: " << vector.getLength() << std::endl;
+    std::cout << "Vector Capacity: " << vector.getCapacity() << std::endl;
+
+    vector.reserve(15);
+    std::cout << "Vector Capacity: " << vector.getCapacity() << std::endl;
+    printVector(vector);
+
+    vector.pushBack(1);
+    vector.pushBack(2);
+    Vector<int>::Iterator iter = vector.pushBack(10);
+    std::cout << *iter << " " << *(iter + 1) << std::endl;
+    iter--;
+    std::cout << *iter << " " << *(iter - 1) << std::endl;
+
+    std::cout << "Vector Length: " << vector.getLength() << std::endl;
+    printVector(vector);
+
+    iter = vector.insert(iter, 3);
+    iter = vector.insert(iter, 4);
+    vector.erase(vector.begin());
+    vector.erase(vector.begin() + 1);
+
+    std::cout << "After insertion and deletion." << std::endl;
+    std::cout << "Vector Length: " << vector.getLength() << std::endl;
+    printVector(vector);
+
+    std::cout << "Is 4 found? " ;
+    auto location4 = vector.find(4);
+    if (location4 != vector.end())
+        std::cout << "Yes at location: " << location4.getIndex() << std::endl;
+    else
+        std::cout << "No." << std::endl;
+
+    std::cout << "Is 20 found? ";
+    auto location20 = vector.find(20);
+    if (location20 != vector.end())
+        std::cout << "Yes at location: " << location20.getIndex() << std::endl;
+    else
+        std::cout << "No." << std::endl;
+
+    auto iter1 = vector.begin();
+    auto iter2 = iter1 + 1;
+
+    std::cout << "iter1 index: " << iter1.getIndex() << ", value: " << *iter1 << std::endl;
+    std::cout << "iter2 index: " << iter2.getIndex() << ", value: " << *iter2 << std::endl;
+    std::cout << (iter1 == iter2) << " " << (iter1 != iter2) << std::endl;
+    std::cout << (iter1 < iter2) << " " << (iter1 > iter2) << std::endl;
+    std::cout << (iter1 <= iter2) << " " << (iter1 >= iter2) << std::endl;
+
+    iter1 += 1;
+
+    std::cout << "iter1 index: " << iter1.getIndex() << ", value: " << *iter1 << std::endl;
+    std::cout << "iter2 index: " << iter2.getIndex() << ", value: " << *iter2 << std::endl;
+    std::cout << (iter1 == iter2) << " " << (iter1 != iter2) << std::endl;
+    std::cout << (iter1 < iter2) << " " << (iter1 > iter2) << std::endl;
+    std::cout << (iter1 <= iter2) << " " << (iter1 >= iter2) << std::endl;
+
+    std::cout << "Vector Testing End." << std::endl << std::endl;
+    */
+
+    //List version 1.0
+    /*  std::cout << "List Testing Begin." << std::endl << std::endl;
 
     List<int> list;
     std::cout << "Is the list empty: " << list.isEmpty() << std::endl;
@@ -138,7 +205,72 @@ int main()
 
     std::cout << "List Testing End." << std::endl << std::endl; */
 
-    std::cout << "Stack Testing Begin." << std::endl << std::endl;
+    //List Version 2.0.
+    std::cout << "List Testing Begin." << std::endl << std::endl;
+
+    List<int> list1;
+    std::cout << "Is list empty: " << list1.isEmpty() << std::endl;
+    std::cout << "List Length: " << list1.getLength() << std::endl;
+    printList(list1);
+
+    auto iter1 = list1.begin();
+    if (iter1 == list1.end())
+        std::cout << "begin() is end()." << std::endl;
+
+    iter1 = list1.last();
+    if (iter1 == list1.end())
+        std::cout << "last() is end()." << std::endl;
+
+    iter1 = list1.end();
+    if (iter1 == list1.end())
+        std::cout << "end() is end()." << std::endl;
+
+    list1.pushBack(1);
+    list1.pushBack(2);
+
+    std::cout << "List length: " << list1.getLength() << std::endl;
+    printList(list1);
+
+    list1.pushFront(0);
+    std::cout << "List length: " << list1.getLength() << std::endl;
+    printList(list1);
+    list1.pushBack(3);
+    list1.insert(list1.last(), 22);
+    list1.insert(list1.begin(), -1);
+    list1.insert(list1.end(), 33);
+
+    std::cout << "List length: " << list1.getLength() << std::endl;
+    printList(list1);
+    std::cout << "Front(): " << list1.front() << std::endl;
+    std::cout << "Back(): " << list1.back() << std::endl;
+
+    List<int> list2(list1);
+    std::cout << "list1 == list2: " << (list1 == list2) << std::endl;
+
+    list2 = list1;
+    std::cout << "list1 == list2: " << (list1 == list2) << std::endl;
+
+    list1.erase(list1.begin());
+    iter1 = list1.find(22);
+    auto temp = iter1;
+    temp++;
+    list1.erase(iter1);
+    list1.erase(temp);
+    list1.erase(list1.last());
+    list1.popBack();
+    list1.popFront();
+
+    std::cout << "List length: " << list1.getLength() << std::endl;
+    printList(list1);
+    std::cout << "Front(): " << list1.front() << std::endl;
+    std::cout << "Back(): " << list1.back() << std::endl;
+
+    std::cout << "list1 == list2: " << (list1 == list2) << std::endl;
+    printList(list2);
+
+    std::cout << std::endl << "List Testing end." << std::endl << std::endl;
+    
+    /* std::cout << "Stack Testing Begin." << std::endl << std::endl;
 
     Stack<int> stack;
     std::cout << "Is stack empty: " << stack.isEmpty() << std::endl;
@@ -189,9 +321,7 @@ int main()
     std::cout << "Queue Length: " << queue.getLength() << std::endl;
     printQueue(queue);
 
-    std::cout << std::endl << "Queue Testing End." << std::endl << std::endl;
-
-    
+    std::cout << std::endl << "Queue Testing End." << std::endl << std::endl; */
 
     std::cout << "End of program." << std::endl;
     std::cout << "------------------------------" << std::endl;
@@ -212,7 +342,7 @@ void printVector(const Vector<T> &vector)
 }
 
 template <typename T>
-void printList(List<T> &list)
+void printList(const List<T> &list)
 {
     //Since I am reading an object not a pointer.
     //list could never be NULL or nullptr.
@@ -221,17 +351,9 @@ void printList(List<T> &list)
         std::cout << "Empty.";
     else
     {
-        ListNode<int> *iter = list.begin();
-        int i = 0;
-        for (; iter != NULL; iter = iter->getNext())
-        {
-            if (i < list.getLength() - 1)
-                std::cout << iter->getDataConst() << " ";
-            else
-                std::cout << iter->getDataConst();
-            i++;
-        }
-        std::cout << ".";
+        for (auto iter = list.begin(); iter != list.last(); iter++)
+            std::cout << *iter << " ";
+        std::cout << list.back() << ".";
     }
     std::cout << std::endl;
 }

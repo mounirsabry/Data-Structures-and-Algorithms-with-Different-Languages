@@ -20,6 +20,7 @@ namespace datastructures_mounir
     {
         if (initialCapacity < 0)
             capacity = 0;
+        if (capacity == 0)
             return;
         try 
         {
@@ -39,8 +40,7 @@ namespace datastructures_mounir
             array = new T[capacity];
         if (length > 0)
         {
-            for (int i = 0; i < length; i++)
-                array[i] = otherVector[i];
+            copyArray(otherVector.array, array, length);
         }
     }
 
@@ -62,8 +62,7 @@ namespace datastructures_mounir
             array = new T[capacity];
         if (length > 0)
         {
-            for (int i = 0; i < length; i++)
-                array[i] = otherVector.array[i];
+            copyArray(otherVector.array, array, length);
         }
         return *this;
     }
@@ -140,6 +139,52 @@ namespace datastructures_mounir
     }
 
     template <typename T>
+    typename Vector<T>::Iterator Vector<T>::find(const T &item) const
+    {
+        int itemIndex = -1;
+        for (int i = 0; i < length; i++)
+        {
+            if (array[i] == item)
+            {
+                itemIndex = i;
+                break;
+            }
+        }
+        if (itemIndex == -1)
+            return end();
+        else
+        {
+            Vector<T>::Iterator iter(array, itemIndex);
+            return iter;
+        }
+    }
+
+    template <typename T>
+    typename Vector<T>::Iterator Vector<T>::begin() const
+    {
+        if (length == 0)
+            return end();
+        Vector<T>::Iterator iter(array, 0);
+        return iter;
+    }
+
+    template <typename T>
+    typename Vector<T>::Iterator Vector<T>::last() const
+    {
+        if (length == 0)
+            return end();
+        Vector<T>::Iterator iter(array, length - 1);
+        return iter;
+    }
+
+    template <typename T>
+    typename Vector<T>::Iterator Vector<T>::end() const
+    {
+        Vector<T>::Iterator iter(array, length);
+        return iter;
+    }
+
+    template <typename T>
     T &Vector<T>::front() const
     {
         return array[0];
@@ -152,10 +197,13 @@ namespace datastructures_mounir
     }
 
     template <typename T>
-    int Vector<T>::insert(int index, const T &item)
+    typename Vector<T>::Iterator Vector<T>::insert(const typename Vector<T>::Iterator &location, const T &item)
     {
-        if (index < 0 || index > length)
-            return -1;
+        if (location > end())
+            return end();
+        int index = location.getIndex();
+        if (index < 0)
+            return end();
         try 
         {
             if (capacity <= 0)
@@ -165,20 +213,44 @@ namespace datastructures_mounir
         }
         catch (std::bad_alloc e)
         {
-            return -1;
+            return end();
         }
         //Shifing the element to insert the new element, relies on the
         //assignment operator of the vector datatype.
         for (int i = length; i > index; i--)
             array[i] = array[i - 1];
         array[index] = item;
-        return length++;
+        length++;
+        Vector<T>::Iterator iter(array, index + 1);
+        return iter;
     }
 
     template <typename T>
-    int Vector<T>::pushBack(const T &item)
+    typename Vector<T>::Iterator Vector<T>::pushBack(const T &item)
     {
-        return insert(length, item);
+        return insert(end(), item);
+    }
+
+    template <typename T>
+    bool Vector<T>::popBack()
+    {
+        return erase(last());
+    }
+
+    template <typename T>
+    bool Vector<T>::erase(const typename Vector<T>::Iterator &location)
+    {
+        if (location >= end())
+            return false;
+        int index = location.getIndex();
+        if (index < 0)
+            return false;
+        for (int i = index; i < length - 1; i++)
+        {
+            array[i] = array[i + 1]; 
+        }
+        length--;
+        return true;
     }
 
     template <typename T>
@@ -188,19 +260,6 @@ namespace datastructures_mounir
         {
             newArray[i] = oldArray[i];
         }
-    }
-
-    template <typename T>
-    bool Vector<T>::erase(int index)
-    {
-        if (index < 0 || index >= length)
-            return false;
-        for (int i = index; i < length - 1; i++)
-        {
-            array[i] = array[i + 1]; 
-        }
-        length--;
-        return true;
     }
 
     template <typename T>
@@ -228,6 +287,77 @@ namespace datastructures_mounir
             outStream << vector.at(vector.length - 1);
         }
         return outStream;
+    }
+
+    template <typename T>
+    Vector<T>::Iterator::Iterator(T *arrayStartPointer, int index)
+        : startPointer(arrayStartPointer), currentIndex(index)
+    {}
+
+    //Prefix operator.
+    template <typename T>
+    typename Vector<T>::Iterator &Vector<T>::Iterator::operator++ ()
+    {
+        currentIndex++;
+        return *this;
+    }
+
+    //Postfix operator.
+    template <typename T>
+    typename Vector<T>::Iterator Vector<T>::Iterator::operator++ (int)
+    {
+        Vector<T>::Iterator temp = *this;
+        currentIndex++;
+        return temp;
+    }
+
+    //Prefix operator.
+    template <typename T>
+    typename Vector<T>::Iterator &Vector<T>::Iterator::operator-- ()
+    {
+        currentIndex--;
+        return *this;
+    }
+
+    //Postfix template.
+    template <typename T>
+    typename Vector<T>::Iterator Vector<T>::Iterator::operator-- (int)
+    {
+        Vector<T>::Iterator temp = *this;
+        currentIndex--;
+        return temp;
+    }
+
+    template <typename T>
+    typename Vector<T>::Iterator &Vector<T>::Iterator::operator+= (int offset)
+    {
+        currentIndex += offset;
+        return *this;
+    } 
+
+    template <typename T>
+    typename Vector<T>::Iterator &Vector<T>::Iterator::operator-= (int offset)
+    {
+        currentIndex -= offset;
+        return *this;
+    }
+
+    template <typename T>
+    T &Vector<T>::Iterator::operator* () const
+    {
+        return startPointer[currentIndex];
+    }
+
+    template <typename T>
+    T &Vector<T>::Iterator::operator[] (int index) const
+    {
+        return startPointer[currentIndex + index];
+    }
+
+    template <typename T>
+    int Vector<T>::Iterator::getIndex() const
+    {
+        return currentIndex;
     }
 }
 

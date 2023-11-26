@@ -21,7 +21,7 @@
 #include "stack.h"
 #include "queue.h"
 /*
-    Done for  the ease of compiling the data
+    Done for the ease of compiling the data
     structure usage cpp file, could be removed without 
     an error.
     The cpp files are guarded with safe gurads of their own to prevent

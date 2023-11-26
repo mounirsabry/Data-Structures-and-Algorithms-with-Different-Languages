@@ -2,8 +2,6 @@
 #ifndef QUEUE_CPP
 #define QUEUE_CPP
 
-#include <cstdlib> //For NULL.
-#include <iostream>
 #include "../Headers/queue.h"
 
 namespace datastructures_mounir

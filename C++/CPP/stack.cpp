@@ -2,8 +2,6 @@
 #ifndef STACK_CPP
 #define STACK_CPP
 
-#include <cstdlib> //For NULL.
-#include <iostream>
 #include "../Headers/stack.h"
 
 namespace datastructures_mounir
