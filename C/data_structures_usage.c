@@ -53,9 +53,6 @@ int main()
     puts("User Array after growing capacity to 1000.");
     printf("Array capacity and length :%d %d.\n", getCapacityUserArray(array1), getLengthUserArray(array1));
     printUserArray(array1);
-
-    printf("Array capacity and length :%d %d.\n", getCapacityUserArray(array1), getLengthUserArray(array1));
-    printUserArray(array1);
     
     puts("--------------------------------------------------");
     puts("Deallocating the Array.");
@@ -120,7 +117,7 @@ int main()
     printf("list[0] :%d\n", getValueUserLinkedList(linkedList, 0));
     printf("list[1] :%d\n", getValueUserLinkedList(linkedList, 1)); */
     /* puts("User Stack Section.");
-    UserStack *stack = createUserStack(-599);
+    UserStack *stack = createUserStack(-599); //Testing
     printf("Empty Stack capacity :%d, length :%d\n", getCapacityUserStack(stack), getLengthUserStack(stack));
     printf("stack peek :%d, stack pop :%d.\n", peekUserStack(stack), popUserStack(stack));
 

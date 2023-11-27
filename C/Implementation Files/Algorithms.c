@@ -16,6 +16,7 @@ void printIntList(int *list, int length)
     puts("");
     return;
 }
+
 void printFloatList(float *list, int length)
 {
     if (length == 0 || list == NULL)
@@ -29,6 +30,7 @@ void printFloatList(float *list, int length)
     puts("");
     return;
 }
+
 void printDoubleList(double *list, int length)
 {
     if (length == 0 || list == NULL)
@@ -42,6 +44,7 @@ void printDoubleList(double *list, int length)
     puts("");
     return;
 }
+
 //Fill a List with Random Numbers.
 void fillRandomInt(int *list, int length)
 {
@@ -55,6 +58,7 @@ void fillRandomInt(int *list, int length)
     }
     return;
 }
+
 void fillRandomIntLimit(int *list, int length, int start, int end)
 {
     if (length == 0 || list == NULL)
@@ -67,6 +71,7 @@ void fillRandomIntLimit(int *list, int length, int start, int end)
     }
     return;
 }
+
 void fillRandomFloat(float *list, int length)
 {
     if (length == 0 || list == NULL)
@@ -79,6 +84,7 @@ void fillRandomFloat(float *list, int length)
     }
     return;
 }
+
 void fillRandomFloatLimit(float *list, int length, int start, int end)
 {
     if (length == 0 || list == NULL)
@@ -91,6 +97,7 @@ void fillRandomFloatLimit(float *list, int length, int start, int end)
     }
     return;
 }
+
 void fillRandomDouble(double *list, int length)
 {
     if (length == 0 || list == NULL)
@@ -103,6 +110,7 @@ void fillRandomDouble(double *list, int length)
     }
     return;
 }
+
 void fillRandomDoubleLimit(double *list, int length, int start, int end)
 {
     if (length == 0 || list == NULL)
@@ -115,6 +123,7 @@ void fillRandomDoubleLimit(double *list, int length, int start, int end)
     }
     return;
 }
+
 //Deep Copy a list into another list.
 int *deepCopyListInt(int *list, int length)
 {
@@ -129,6 +138,7 @@ int *deepCopyListInt(int *list, int length)
     }
     return newList;
 }
+
 float *deepCopyListFloat(float *list, int length)
 {
 if (list == NULL || length == 0)
@@ -142,6 +152,7 @@ if (list == NULL || length == 0)
     }
     return newList;
 }
+
 double *deepCopyListDouble(double *list, int length)
 {
 if (list == NULL || length == 0)
@@ -155,6 +166,7 @@ if (list == NULL || length == 0)
     }
     return newList;
 }
+
 //Search Algorithms.
 int sequentialSearchUnsorted(int *list, int length, int key)
 {
@@ -171,6 +183,7 @@ int sequentialSearchUnsorted(int *list, int length, int key)
     }
     return -1;
 }
+
 int sequentialSearchSorted(int *list, int length, int key)
 {
     if (length == 0 || list == NULL)
@@ -190,6 +203,7 @@ int sequentialSearchSorted(int *list, int length, int key)
     }
     return -1;
 }
+
 int binarySearchRecV1(int *list, int length, int key)
 {
     if (list == NULL || length == 0)
@@ -229,6 +243,7 @@ int binarySearchRecV1(int *list, int length, int key)
     }
     return -1;
 }
+
 int binarySearchRecV2(int *list, int length, int key)
 {
     if (list == NULL || length == 0)
@@ -259,6 +274,7 @@ int binarySearchRecV2(int *list, int length, int key)
         return search(list, midIndex + 1, maxIndex, key);
     }
 }
+
 int search(int *list, int minIndex, int maxIndex, int key)
 {
     if (minIndex == maxIndex)
@@ -284,11 +300,42 @@ int search(int *list, int minIndex, int maxIndex, int key)
     }
     return -1;
 }
+
 int binarySearchIt(int *list, int length, int key)
 {
-    puts("The function is not implemented yet.");
+    if (list == NULL || length == 0)
+    {
+        return -1;
+    }
+    else if (length == 1)
+    {
+        if (list[0] == key)
+        {
+            return 0;
+        }
+        return -1;
+    }
+    int minIndex = 0;
+    int maxIndex = length - 1;
+    while (minIndex <= maxIndex)
+    {
+        int midIndex = ceil((float)(minIndex + maxIndex) / 2);
+        if (list[midIndex] == key)
+        {
+            return midIndex;
+        }
+        else if (key < list[midIndex])
+        {
+            maxIndex = midIndex - 1;
+        }
+        else //key is bigger.
+        {
+            minIndex = midIndex + 1;
+        }
+    }
     return -1;
 }
+
 //Sorting Algorithms.
 void bubbleSort(int *list, int length)
 {
@@ -314,6 +361,7 @@ void bubbleSort(int *list, int length)
     }
     return;
 }
+
 void insertionSort(int *list, int length)
 {
     if (list == NULL || length == 0)
@@ -334,6 +382,7 @@ void insertionSort(int *list, int length)
     }
     return;
 }
+
 void selectionSort(int *list, int length)
 {
     if (list == NULL || length == 0)

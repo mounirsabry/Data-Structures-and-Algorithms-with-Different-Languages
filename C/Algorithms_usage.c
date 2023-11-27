@@ -153,6 +153,18 @@ int main()
     }
     printf("\".\n");
 
+    binarySearchKeyIndex = binarySearchIt(pNumbers, length, key);
+    printf("The Binary Search Iterative Says \"");
+    if (binarySearchKeyIndex == -1)
+    {
+        printf("No, The key does not exist in the list");
+    }
+    else
+    {
+        printf("Yes, it is at index %d (counting from zero)", binarySearchKeyIndex);
+    }
+    printf("\".\n");
+
     puts("");
     puts("Let's Sort the List and Test Again.");
     insertionSort(pNumbers, length);
@@ -201,6 +213,18 @@ int main()
 
     binarySearchKeyIndex = binarySearchRecV2(pNumbers, length, key);
     printf("The Binary Search V2 Says \"");
+    if (binarySearchKeyIndex == -1)
+    {
+        printf("No, The key does not exist in the list");
+    }
+    else
+    {
+        printf("Yes, it is at index %d (counting from zero)", binarySearchKeyIndex);
+    }
+    printf("\".\n");
+
+    binarySearchKeyIndex = binarySearchIt(pNumbers, length, key);
+    printf("The Binary Search Iterative Says \"");
     if (binarySearchKeyIndex == -1)
     {
         printf("No, The key does not exist in the list");

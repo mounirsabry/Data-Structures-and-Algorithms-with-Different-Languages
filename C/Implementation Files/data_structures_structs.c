@@ -14,7 +14,7 @@ const int USER_ARRAY_DEFAULT_EMPTY_GROWTH_SIZE = 10;
 
 UserArray *createUserArray(int initialCapacity)
 {
-    if (initialCapacity == 0) initialCapacity = 0;
+    if (initialCapacity < 0) initialCapacity = 0;
     UserArray *array = (UserArray *) malloc (sizeof(UserArray));
     array->data = NULL;
     array->capacity = 0;
@@ -67,7 +67,7 @@ int insertItemUserArray(UserArray *array, int index, int item)
     {
         growUserArray(array, USER_ARRAY_DEFAULT_EMPTY_GROWTH_SIZE);
     }
-    else if (array->length == array->capacity)
+    else if (array->length >= array->capacity)
     {
         growUserArray(array, array->capacity * 2);
     }
@@ -245,7 +245,6 @@ UserLinkedListNode *navigateToNodeByIndex(UserLinkedList *list, int index)
     int midIndex = list->length / 2;
     if (index < midIndex) // Start navigating from the head pointer.
     {
-
         int currentIndex = 0;
         desiredNode = list->head;
         while(currentIndex < index)
