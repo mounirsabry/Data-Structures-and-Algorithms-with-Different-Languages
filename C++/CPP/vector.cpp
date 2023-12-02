@@ -4,6 +4,7 @@
 
 #include <cstdlib> //For NULL.
 #include <iostream>
+#include <cmath>
 #include "../Headers/vector.h"
 using namespace datastructures_mounir;
 
@@ -37,7 +38,16 @@ namespace datastructures_mounir
         : array(NULL), capacity(otherVector.capacity), length(otherVector.length)
     {
         if (capacity > 0)
-            array = new T[capacity];
+        {
+            try 
+            {
+                reserve(capacity);
+            }
+            catch (std::bad_alloc e)
+            {
+                throw e;
+            }
+        }
         if (length > 0)
         {
             copyArray(otherVector.array, array, length);
@@ -59,7 +69,16 @@ namespace datastructures_mounir
         capacity = otherVector.capacity;
         length = otherVector.length;
         if (capacity > 0)
-            array = new T[capacity];
+        {
+            try 
+            {
+                reserve(capacity);
+            }
+            catch (std::bad_alloc e)
+            {
+                throw e;
+            }
+        }
         if (length > 0)
         {
             copyArray(otherVector.array, array, length);
@@ -78,12 +97,12 @@ namespace datastructures_mounir
         {
             if (length <= 0)
             {
-                array = new T(newCapacity);
+                array = new T[newCapacity];
                 capacity = newCapacity;
             }
             else
             {
-                T *tempArray = new T(newCapacity);
+                T *tempArray = new T[newCapacity];
                 copyArray(array, tempArray, length);
                 delete []array;
                 array = tempArray;
@@ -254,12 +273,209 @@ namespace datastructures_mounir
     }
 
     template <typename T>
+    void Vector<T>::swap(const typename Vector<T>::Iterator &iter1,
+                         const typename Vector<T>::Iterator &iter2)
+    {
+        int index1 = iter1.getIndex();
+        int index2 = iter2.getIndex();
+
+        T temp = array[index1];
+        array[index1] = array[index2];
+        array[index2] = temp;
+    }
+
+    template <typename T>
+    void Vector<T>::sortSelectionSort()
+    {
+        if (array == nullptr || length == 0 || length == 1)
+            return;
+        for (int i = 0; i < length - 1; i++)
+        {
+            int smallestIndex = i;
+            for (int j = i + 1; j < length; j++)
+            {
+                if (array[j] < array[smallestIndex])
+                    smallestIndex = j;
+            }
+            if (smallestIndex != i)
+                swap(array[i], array[smallestIndex]);
+        }
+    }
+
+    template <typename T>
+    void Vector<T>::sortInsertionSort()
+    {
+        if (array == nullptr || length == 0 || length == 1)
+            return;
+        for (int i = 1; i < length; i++)
+        {
+            int holeIndex = i;
+            while ((array[holeIndex] < array[holeIndex - 1]) && (holeIndex >= 1))
+            {
+                swap(array[holeIndex], array[holeIndex - 1]);
+                holeIndex--;
+            }
+        }
+    }
+
+    template <typename T>
+    void Vector<T>::sortBubbleSort()
+    {
+        if (array == nullptr || length == 0 || length == 1)
+            return;
+        bool isSorted = false;
+        while (!isSorted)
+        {
+            isSorted = true;
+            for (int i = 0; i < length - 1; i++)
+            {
+                if (array[i] > array[i + 1])
+                {
+                    swap(array[i], array[i + 1]);
+                    isSorted = false;
+                }
+            }
+        }
+    }
+
+    template <typename T>
+    void Vector<T>::sortQuickSort()
+    {
+        if (array == nullptr || length == 0 || length == 1)
+        return;
+        quickSortUtil(array, 0, length - 1);
+    }
+
+    template <typename T>
+    void Vector<T>::sortMergeSort()
+    {
+        if (array == nullptr || length == 0 || length == 1)
+            return;
+        T *sortedArray = mergeSortUtil(array, 0, length - 1);
+        std::cout << "hello from merge sort after function call." << std::endl;
+        for (int i = 0; i < length; i++)
+            array[i] = sortedArray[i];
+        delete []sortedArray;
+    }
+
+    template <typename T>
     void Vector<T>::copyArray(T *oldArray, T *newArray, int length) const
     {
         for (int i = 0; i < length; i++)
         {
             newArray[i] = oldArray[i];
         }
+    }
+
+    template <typename T>
+    void Vector<T>::swap(T &element1, T &element2)
+    {
+        T temp = element1;
+        element1 = element2;
+        element2 = temp;
+    }
+
+    template <typename T>
+    void Vector<T>::quickSortUtil(T *array, int minIndex, int maxIndex)
+    {
+        // == returns since a array with one element is already sorted.
+        if (minIndex >= maxIndex) 
+            return;
+
+        int i = minIndex;
+        int j = maxIndex;
+        int pivotIndex = minIndex; 
+        //could be changed to be any value within
+        //the range [minIndex, maxIndex].
+        while (i <= j)
+        {
+            while (array[i] <= array[pivotIndex])
+                i++;
+            while (array[j] > array[pivotIndex]) 
+                j--;
+            if (i <= j)
+                swap(array[i], array[j]);
+        }
+        int sortedPosition = pivotIndex;
+        if (j >= minIndex && j <= maxIndex && j != pivotIndex)
+        {
+            sortedPosition = j;
+            swap(array[pivotIndex], array[sortedPosition]);
+        }
+        quickSortUtil(array, minIndex, sortedPosition - 1);
+        quickSortUtil(array, sortedPosition + 1, maxIndex);
+    }
+
+    template <typename T>
+    T *Vector<T>::mergeSortUtil(T *array, int minIndex, int maxIndex)
+    {
+        if (minIndex == maxIndex)
+        {
+            T *subList = nullptr;
+            try
+            {
+                subList = new T[1];
+            }
+            catch(std::bad_alloc e)
+            {
+                throw e;
+            }
+            subList[0] = array[minIndex];
+            return subList;
+        }
+        else
+        {
+            //The static cast to double is to force the mid element to be always
+            //the first element in the second half similar to the binary search work.
+            //Doing it the other way is fine but I prefered it this way for consistency.
+            int midIndex = ceil(static_cast<double>(minIndex + maxIndex) / 2);
+            //First half.
+            //When length is even, it will be length / 2
+            //When length is odd, it will be length /2 integer division
+            //in other words, smaller than the second half by 1. 
+            T *sortedArray1 = mergeSortUtil(array, minIndex, midIndex - 1);
+            //Second half.
+            //When length is even, it will be length / 2
+            //When length is odd, it will be ceil (length / 2)
+            //in other words, bigger than the first half by 1.
+            T *sortedArray2 = mergeSortUtil(array, midIndex, maxIndex);
+            int array1Length = midIndex - minIndex;
+            int array2Length = maxIndex - midIndex + 1;
+            T *sortedGroupArray = merge(sortedArray1, sortedArray2, array1Length, array2Length);
+            delete []sortedArray1;
+            delete []sortedArray2;
+            return sortedGroupArray;
+        }
+    }
+
+    template <typename T>
+    T *Vector<T>::merge(T *array1, T *array2, int length1, int length2)
+    {
+        T *groupArray = nullptr;
+        try
+        {
+            groupArray = new T[length1 + length2];
+        }
+        catch(std::bad_alloc e)
+        {
+            throw e;
+        }
+        int i = 0;
+        int j = 0;
+        int k = 0;
+        while ((i < length1) && (j < length2))
+        {
+            if (array1[i] <= array2[j])
+                groupArray[k++] = array1[i++];
+            else
+                groupArray[k++] = array2[j++];
+        }
+
+        while (i < length1)
+            groupArray[k++] = array1[i++];
+        while (j < length2)
+            groupArray[k++] = array2[j++];
+        return groupArray;
     }
 
     template <typename T>

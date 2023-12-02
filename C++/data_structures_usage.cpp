@@ -1,5 +1,7 @@
 //Program to test and use the data structures header and cpp files.
 #include <iostream>
+#include <chrono>
+#include <random>
 #include "Headers/data_structures.h"
 using namespace datastructures_mounir;
 
@@ -15,8 +17,15 @@ void printStack(Stack<T> &stack);
 template <typename T>
 void printQueue(Queue<T> &queue);
 
+std::mt19937 *initializeRandomNumberGenerator();
+void fillIntVectorRandomLimits(Vector<int> &vector, int numberOfElements, std::mt19937 *generator, int start, int end);
+
 int main()
 {
+    std::mt19937 *generator = initializeRandomNumberGenerator();
+    const int START_LIMIT = 1;
+    const int END_LIMIT = 40;
+
     std::cout << "------------------------------" << std::endl;
     //Vector Version 1.0.
     /* std::cout << "Vector Testing Begin." << std::endl << std::endl;
@@ -136,6 +145,17 @@ int main()
     std::cout << "Vector Testing End." << std::endl << std::endl;
     */
 
+    //Vector version 3.0
+    Vector<int> vector1;
+    fillIntVectorRandomLimits(vector1, 10, generator, START_LIMIT, END_LIMIT);
+    std::cout << "Vector1 before sorting." << std::endl;
+    printVector(vector1);
+
+    vector1.sortMergeSort();
+
+    std::cout << "Vector1 after sorting." << std::endl;
+    printVector(vector1);
+
     //List version 1.0
     /*  std::cout << "List Testing Begin." << std::endl << std::endl;
 
@@ -206,6 +226,7 @@ int main()
     std::cout << "List Testing End." << std::endl << std::endl; */
 
     //List Version 2.0.
+    /*
     std::cout << "List Testing Begin." << std::endl << std::endl;
 
     List<int> list1;
@@ -267,9 +288,9 @@ int main()
 
     std::cout << "list1 == list2: " << (list1 == list2) << std::endl;
     printList(list2);
-
     std::cout << std::endl << "List Testing end." << std::endl << std::endl;
-    
+    */
+
     /* std::cout << "Stack Testing Begin." << std::endl << std::endl;
 
     Stack<int> stack;
@@ -416,4 +437,44 @@ void printQueue(Queue<T> &queue)
         delete []queueContent;
     }
     std::cout << std::endl;
+}
+
+std::mt19937 *initializeRandomNumberGenerator()
+{
+    /*
+        The syntax was copied from the Serge Dundich's answer
+        from the stackoverflow website.
+        Question name: How to generate a random number in C++?
+        Question link: 
+        https://stackoverflow.com/questions/13445688/how-to-generate-a-random-number-in-c
+
+        The syntax uses the c++11 modern way of generating random numbers instead of rand
+        and srand.
+        It uses the random device as a pseudo random generator.
+        The seed is the sum of the system time and the high resolution clock.
+        The uniform distribution is used to make sure that the result was not biased due to the
+        usage of % internally in the distribution.
+    */
+    std::random_device rd;
+    std::mt19937::result_type seed = rd() ^ (
+            (std::mt19937::result_type)
+            std::chrono::duration_cast<std::chrono::seconds>(
+                std::chrono::system_clock::now().time_since_epoch()
+                ).count() +
+            (std::mt19937::result_type)
+            std::chrono::duration_cast<std::chrono::microseconds>(
+                std::chrono::high_resolution_clock::now().time_since_epoch()
+                ).count() );
+
+    std::mt19937 *gen = new std::mt19937(seed);
+    return gen;
+}
+
+void fillIntVectorRandomLimits(Vector<int> &vector, int numberOfElements, std::mt19937 *generator, int start, int end)
+{
+    std::uniform_int_distribution<unsigned> dist(start, end);
+    for (int i = 0; i < numberOfElements; i++)
+    {
+        vector.pushBack(dist(*generator));
+    }
 }

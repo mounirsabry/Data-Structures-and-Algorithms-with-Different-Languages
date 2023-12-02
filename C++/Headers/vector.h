@@ -108,6 +108,14 @@ namespace datastructures_mounir
         //The sent location will now point to the target that existed after the location.
         //If the location was the last element in the vector, then location will be end().
         bool erase(const Vector<T>::Iterator &location);
+        //Swap the content of the elements pointed to by the iterators, the iterators
+        //themselves are not affected and not swapped.
+        void swap(const Vector<T>::Iterator &iter1, const Vector<T>::Iterator &iter2);
+        void sortSelectionSort();
+        void sortInsertionSort();
+        void sortBubbleSort();
+        void sortQuickSort();
+        void sortMergeSort();
         friend bool operator== <T>(const Vector<T> &vector1, const Vector<T> &vector2);
         friend std::ostream& operator<< <T>(std::ostream&, const Vector<T> &vector);
     private:
@@ -118,6 +126,10 @@ namespace datastructures_mounir
         //Relies on the usage of the assignment operator for the datatype
         //given for the vector.
         void copyArray(T *oldArray, T *newArray, int length) const;
+        void swap(T &element1, T &element2);
+        void quickSortUtil(T *array, int minIndex, int maxIndex);
+        T *mergeSortUtil(T *array, int minIndex, int maxIndex);
+        T *merge(T *array1, T *array2, int length1, int length2);
     };
                
     template <typename T>
