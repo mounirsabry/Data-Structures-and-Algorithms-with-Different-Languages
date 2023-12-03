@@ -68,7 +68,18 @@ namespace datastructures_mounir
         T &at(int index) const;
         //Searches the vector for the given value.
         //Returns end() if the item was not found in the vector.
-        Vector<T>::Iterator find(const T &item) const;
+        //Sequential Search.
+        //The search works on sorted and unsorted vector.
+        //The algorithm does not cut early except when it find
+        //the key item, otherwise it iterates through the whole vector.
+        Vector<T>::Iterator findSequential(const T &item) const;
+        //Searches the vector for the given value.
+        //Returns end() if the item was not found in the vector.
+        //Binary Search, require the vector to be sorted before operation.
+        //Function does not sort the vector nor check if sorted.
+        //If the function run on unsorted vector, the result will be unpredicatable.
+        //Iterative Implementation.
+        Vector<T>::Iterator findBinary(const T &item) const;
         //Returns an iterator pointing to the first element in the vector.
         Vector<T>::Iterator begin() const;
         //Returns an iterator pointing to the last element in the vector.
@@ -111,10 +122,19 @@ namespace datastructures_mounir
         //Swap the content of the elements pointed to by the iterators, the iterators
         //themselves are not affected and not swapped.
         void swap(const Vector<T>::Iterator &iter1, const Vector<T>::Iterator &iter2);
+        //In-place sort.
         void sortSelectionSort();
+        //In-place sort.
         void sortInsertionSort();
+        //In-place sort.
         void sortBubbleSort();
+        //In-place sort.
+        //Recursive Implementation.
         void sortQuickSort();
+        //Out of place sort, allocates aditional memory
+        //during working, if the memory allocation failed
+        //an exception will be thrown.
+        //Recursive Implementation.
         void sortMergeSort();
         friend bool operator== <T>(const Vector<T> &vector1, const Vector<T> &vector2);
         friend std::ostream& operator<< <T>(std::ostream&, const Vector<T> &vector);

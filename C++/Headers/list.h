@@ -32,7 +32,18 @@ namespace datastructures_mounir
         //Searches the list for the first instance of the item
         //given, relies on the == operator on comparsion.
         //Returns an iterator pointing to that element.
-        List<T>::Iterator find(const T &item);
+        //Sequential Search, the algorithm does not cut excpet
+        //when the key item is found, otherwise, the algorithm
+        //iterates through the whole list.
+        List<T>::Iterator findSequential(const T &keyItem);
+        //Searches the list for an instance of the key item
+        //given, relies on the == operator on comparsion.
+        //Returns an iterator pointing to that element.
+        //Binary Search, the list must be sorted.
+        //The function does not sort the list nor check if sorted.
+        //If the function run on unsorted list, the result will be unpredictable.
+        //Iterative Implementation.
+        List<T>::Iterator findBinary(const T &keyItem);
         //Returns an iterator points to the first element in the list.
         List<T>::Iterator begin() const;
         //Returns an iterator points to the last element in the list.
@@ -64,12 +75,28 @@ namespace datastructures_mounir
         //Returns true if the deletion was successful, false
         //otherwise.
         bool erase(const List<T>::Iterator &location);
+        //Swaps the content of the nodes pointed to by the iterators.
+        //The iterators are unaffected directly by the function.
+        //After the function call, dereference the iterators will yield
+        //the new swapped items.
+        //You cannot swap an iterator pointing to end(), function will return.
+        void swap(const List<T>::Iterator &iter1, const List<T>::Iterator &iter2);
+        //In-place sort.
+        void sortInsertionSort();
+        //In-place sort.
+        void sortBubbleSort();
+        //Out-of-place sort.
+        void sortMergeSort();
         friend bool operator== <T>(const List<T> &list1, const List<T> &list2);
     private:
         List<T>::ListNode *head;
         List<T>::ListNode *tail;
         List<T>::ListNode *endNode;
         int length;
+        List<T>::ListNode *getNodeByIndex(int index) const;
+        void swap(const List<T>::ListNode &node1, const List<T>::ListNode &node2);
+        List<T> mergeSortUtil(const List<T> &list, int minIndex, int maxIndex) const;
+        List<T> merge(const List<T> &list1, const List<T> &list2) const;
     };
 
     template <typename T>

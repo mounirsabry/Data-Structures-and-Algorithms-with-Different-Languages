@@ -158,12 +158,12 @@ namespace datastructures_mounir
     }
 
     template <typename T>
-    typename Vector<T>::Iterator Vector<T>::find(const T &item) const
+    typename Vector<T>::Iterator Vector<T>::findSequential(const T &keyItem) const
     {
         int itemIndex = -1;
         for (int i = 0; i < length; i++)
         {
-            if (array[i] == item)
+            if (array[i] == keyItem)
             {
                 itemIndex = i;
                 break;
@@ -176,6 +176,36 @@ namespace datastructures_mounir
             Vector<T>::Iterator iter(array, itemIndex);
             return iter;
         }
+    }
+
+    template <typename T>
+    typename Vector<T>::Iterator Vector<T>::findBinary(const T &keyItem) const
+    {
+        if (array == nullptr || length == 0)
+            return end();
+        if (length == 1)
+        {
+            if (array[0] == keyItem)
+                return begin();
+            else
+                return end();
+        }
+        int minIndex = 0;
+        int maxIndex = length - 1;
+        while (minIndex <= maxIndex)
+        {
+            int midIndex = ceil(static_cast<double>(minIndex + maxIndex) / 2);
+            if (array[midIndex] == keyItem)
+            {
+                Vector<T>::Iterator iter(array, midIndex);
+                return iter;
+            }
+            else if (keyItem < array[midIndex])
+                maxIndex = midIndex - 1;
+            else
+                minIndex = midIndex + 1;
+        }
+        return end();
     }
 
     template <typename T>
@@ -352,7 +382,6 @@ namespace datastructures_mounir
         if (array == nullptr || length == 0 || length == 1)
             return;
         T *sortedArray = mergeSortUtil(array, 0, length - 1);
-        std::cout << "hello from merge sort after function call." << std::endl;
         for (int i = 0; i < length; i++)
             array[i] = sortedArray[i];
         delete []sortedArray;

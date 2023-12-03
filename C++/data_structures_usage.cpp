@@ -18,7 +18,11 @@ template <typename T>
 void printQueue(Queue<T> &queue);
 
 std::mt19937 *initializeRandomNumberGenerator();
-void fillIntVectorRandomLimits(Vector<int> &vector, int numberOfElements, std::mt19937 *generator, int start, int end);
+int getIntRandomLimit(std::mt19937 *generator, int start, int end);
+void fillIntVectorRandomLimits(Vector<int> &vector, int numberOfElements, std::mt19937 *generator,
+    int start, int end);
+void fillIntListRandomLimits(List<int> &list, int numberOfElements, std::mt19937 *generator,
+    int start, int end);
 
 int main()
 {
@@ -112,14 +116,14 @@ int main()
     printVector(vector);
 
     std::cout << "Is 4 found? " ;
-    auto location4 = vector.find(4);
+    auto location4 = vector.findSequential(4);
     if (location4 != vector.end())
         std::cout << "Yes at location: " << location4.getIndex() << std::endl;
     else
         std::cout << "No." << std::endl;
 
     std::cout << "Is 20 found? ";
-    auto location20 = vector.find(20);
+    auto location20 = vector.findSequential(20);
     if (location20 != vector.end())
         std::cout << "Yes at location: " << location20.getIndex() << std::endl;
     else
@@ -145,17 +149,59 @@ int main()
     std::cout << "Vector Testing End." << std::endl << std::endl;
     */
 
-    //Vector version 3.0
+    //Vector swap, sorting, and searching.
+    /*
+    std::cout << "Vector Testing Begin." << std::endl;
     Vector<int> vector1;
     fillIntVectorRandomLimits(vector1, 10, generator, START_LIMIT, END_LIMIT);
+    int key = getIntRandomLimit(generator, START_LIMIT, END_LIMIT);
+
     std::cout << "Vector1 before sorting." << std::endl;
     printVector(vector1);
+    std::cout << "The key: " << key << std::endl;
+
+    Vector<int>::Iterator iter1 = vector1.begin();
+    Vector<int>::Iterator iter2 = vector1.last();
+    std::cout << *iter1 << " " << *iter2 << std::endl;
+    vector1.swap(iter1, iter2);
+    std::cout << "Vector1 after swapping first and last." << std::endl;
+    printVector(vector1);
+    std::cout << *iter1 << " " << *iter2 << std::endl << std::endl;
+
+    Vector<int>::Iterator iter = vector1.findSequential(key);
+    std::cout << "Sequential Search." << std::endl;
+    if (iter != vector1.end())
+        std::cout << "Key is found in the vector." << std::endl;
+    else
+        std::cout << "Key is not found in the vector." << std::endl;
+
+    iter = vector1.findBinary(key);
+    std::cout << std::endl << "Binary Search." << std::endl;
+    if (iter != vector1.end())
+        std::cout << "Key is found in the vector." << std::endl;
+    else
+        std::cout << "Key is not found in the vector." << std::endl;
 
     vector1.sortMergeSort();
 
-    std::cout << "Vector1 after sorting." << std::endl;
+    std::cout << std::endl << "Vector1 after sorting." << std::endl;
     printVector(vector1);
 
+    iter = vector1.findSequential(key);
+    std::cout << "Sequential Search." << std::endl;
+    if (iter != vector1.end())
+        std::cout << "Key is found in the vector." << std::endl;
+    else
+        std::cout << "Key is not found in the vector." << std::endl;
+
+    iter = vector1.findBinary(key);
+    std::cout << std::endl << "Binary Search." << std::endl;
+    if (iter != vector1.end())
+        std::cout << "Key is found in the vector." << std::endl;
+    else
+        std::cout << "Key is not found in the vector." << std::endl;
+    std::cout << "Vector Testing End."
+    */
     //List version 1.0
     /*  std::cout << "List Testing Begin." << std::endl << std::endl;
 
@@ -171,7 +217,7 @@ int main()
     std::cout << "After pushing list length: " << list.getLength() << std::endl;
     printList(list);
 
-    ListNode<int> *findNode1 = list.find(10);
+    ListNode<int> *findNode1 = list.findSequential(10);
     list.insert(findNode1, 5);
     list.insert(findNode1, 7);
 
@@ -193,8 +239,8 @@ int main()
 
     std::cout << "Testing deep copy copy constructor and assignment operator." << std::endl;
     List<int> copyList(list); //Copy constructor;
-    ListNode<int> *findNode2 = copyList.find(5);
-    findNode1 = list.find(5);
+    ListNode<int> *findNode2 = copyList.findSequential(5);
+    findNode1 = list.findSequential(5);
 
     findNode1->setData(11);
     std::cout << "After changing the value of the node which contains 5 in list." << std::endl;
@@ -207,7 +253,7 @@ int main()
     printList(copyList);
 
     copyList = list;
-    findNode2 = copyList.find(11);
+    findNode2 = copyList.findSequential(11);
 
     std::cout << "Testing assignment operator 1." << std::endl;
     printList(list);
@@ -272,7 +318,7 @@ int main()
     std::cout << "list1 == list2: " << (list1 == list2) << std::endl;
 
     list1.erase(list1.begin());
-    iter1 = list1.find(22);
+    iter1 = list1.findSequential(22);
     auto temp = iter1;
     temp++;
     list1.erase(iter1);
@@ -290,7 +336,60 @@ int main()
     printList(list2);
     std::cout << std::endl << "List Testing end." << std::endl << std::endl;
     */
+    //List swap, sorting, and searching.
+    std::cout << "List Testing Begin." << std::endl << std::endl;
+    List<int> list1;
+    fillIntListRandomLimits(list1, 10, generator, START_LIMIT, END_LIMIT);
+    int key = getIntRandomLimit(generator, START_LIMIT, END_LIMIT);
 
+    std::cout << "The list unsorted." << std::endl;
+    printList(list1);
+    std::cout << "Key: " << key << std::endl;
+
+    List<int>::Iterator beginIter = list1.begin();
+    List<int>::Iterator lastIter = list1.last();
+    std::cout << *beginIter << " " << *lastIter << std::endl;
+    list1.swap(beginIter, lastIter);
+    std::cout << *beginIter << " " << *lastIter << std::endl;
+
+    std::cout << "The list after swapping begin and last." << std::endl << std::endl;
+    printList(list1);
+
+    List<int>::Iterator iter1 = list1.findSequential(key);
+    std::cout << "Sequential Search: ";
+    if (iter1 != list1.end())
+        std::cout << "The key is in the list." << std::endl;
+    else
+        std::cout << "The key is not in the list." << std::endl;
+
+    iter1 = list1.findBinary(key);
+    std::cout << "Binary Search: ";
+    if (iter1 != list1.end())
+        std::cout << "The key is in the list." << std::endl;
+    else
+        std::cout << "The key is not in the list." << std::endl;
+    
+    std::cout << std::endl;
+    std::cout << "The list sorted." << std::endl;
+    list1.sortMergeSort();
+    printList(list1);
+    std::cout << std::endl;
+
+    List<int>::Iterator iter2 = list1.findSequential(key);
+    std::cout << "Sequential Search: ";
+    if (iter2 != list1.end())
+        std::cout << "The key is in the list." << std::endl;
+    else
+        std::cout << "The key is not in the list." << std::endl;
+    
+    iter2 = list1.findBinary(key);
+    std::cout << "Binary Search: ";
+    if (iter2 != list1.end())
+        std::cout << "The key is in the list." << std::endl;
+    else
+        std::cout << "The key is not in the list." << std::endl;
+    std::cout << std::endl;
+    std::cout << "List Testing End." << std::endl;
     /* std::cout << "Stack Testing Begin." << std::endl << std::endl;
 
     Stack<int> stack;
@@ -470,11 +569,29 @@ std::mt19937 *initializeRandomNumberGenerator()
     return gen;
 }
 
-void fillIntVectorRandomLimits(Vector<int> &vector, int numberOfElements, std::mt19937 *generator, int start, int end)
+int getIntRandomLimit(std::mt19937 *generator, int start, int end)
+{
+    //return (start + rand() % (end - start + 1));
+    std::uniform_int_distribution<unsigned> dist(start, end);
+    return dist(*generator);
+}
+
+void fillIntVectorRandomLimits(Vector<int> &vector, int numberOfElements, std::mt19937 *generator,
+    int start, int end)
 {
     std::uniform_int_distribution<unsigned> dist(start, end);
     for (int i = 0; i < numberOfElements; i++)
     {
         vector.pushBack(dist(*generator));
+    }
+}
+
+void fillIntListRandomLimits(List<int> &list, int numberOfElements, std::mt19937 *generator,
+    int start, int end)
+{
+    std::uniform_int_distribution<unsigned> dist(start, end);
+    for (int i = 0; i < numberOfElements; i++)
+    {
+        list.pushBack(dist(*generator));
     }
 }

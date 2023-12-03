@@ -79,18 +79,73 @@ namespace datastructures_mounir
     }
 
     template <typename T>
-    typename List<T>::Iterator List<T>::find(const T &item)
+    typename List<T>::Iterator List<T>::findSequential(const T &keyItem)
     {
         List<T>::ListNode *desiredNode = endNode;
         for (List<T>::ListNode *nodeIter = head; nodeIter != endNode; nodeIter = nodeIter->getNext())
         {
-            if (nodeIter->getDataConst() == item)
+            if (nodeIter->getDataConst() == keyItem)
             {
                 desiredNode = nodeIter;
                 break;
             }
         }
         return List<T>::Iterator(desiredNode);
+    }
+
+    template <typename T>
+    typename List<T>::Iterator List<T>::findBinary(const T &keyItem)
+    {
+        if (length == 0)
+            return end();
+        if (length == 1)
+        {
+            if (head->getDataConst() == keyItem)
+                return begin();
+            else
+                return end();
+        }
+        int minIndex = 0;
+        int maxIndex = length - 1;
+        while (minIndex <= maxIndex)
+        {
+            int midIndex = ceil(static_cast<double>(minIndex + maxIndex) / 2);
+            List<T>::ListNode *midNode = getNodeByIndex(midIndex);
+            if (midNode->getDataConst() == keyItem)
+            {
+                List<T>::Iterator iter(midNode);
+                return iter;
+            }
+            else if (keyItem < midNode->getDataConst())
+                maxIndex = midIndex - 1;
+            else
+                minIndex = midIndex + 1;
+        }
+        /*
+        if (list == nullptr || length == 0)
+            return -1;
+        if (length == 1)
+        {
+            if (list[0] == key)
+                return 0;
+            else
+                return -1;
+        }
+        int minIndex = 0;
+        int maxIndex = length - 1;
+        while (minIndex <= maxIndex)
+        {
+            int midIndex = ceil(static_cast<double>((minIndex + maxIndex)) / 2);
+            if (list[midIndex] == key)
+                return midIndex;
+            else if (key < list[midIndex])
+                maxIndex = midIndex - 1;
+            else
+                minIndex = midIndex + 1;
+        }
+        return -1;
+        */
+        return end();
     }
 
     template <typename T>
@@ -218,6 +273,70 @@ namespace datastructures_mounir
     }
 
     template <typename T>
+    void List<T>::swap(const typename List<T>::Iterator &iter1,
+                       const typename List<T>::Iterator &iter2)
+    {
+        List<T>::ListNode *node1 = iter1.getNode();
+        List<T>::ListNode *node2 = iter2.getNode();
+        if (node1 == endNode || node2 == endNode)
+            return;
+
+        T temp = node1->getData();
+        node1->setData(node2->getData());
+        node2->setData(temp);
+    }
+
+    template <typename T>
+    void List<T>::sortInsertionSort()
+    {
+        if (length == 0 || length == 1)
+            return;
+        //Start from the second element.
+        List<T>::ListNode *nodeIter = head->getNext();
+        for (; nodeIter != endNode; nodeIter = nodeIter->getNext())
+        {
+            List<T>::ListNode *holeNode = nodeIter;
+            while ((holeNode != head) &&
+             (holeNode->getDataConst() 
+            < holeNode->getPrevious()->getDataConst()))
+            {
+                swap(holeNode, holeNode->getPrevious());
+                holeNode = holeNode->getPrevious();
+            }
+        }
+    }
+
+    template <typename T>
+    void List<T>::sortBubbleSort()
+    {
+        if (length == 0 || length == 1)
+            return;
+        bool isSorted = false;
+        while (!isSorted)
+        {
+            isSorted = true;
+            List<T>::ListNode *nodeIter = head;
+            for (; nodeIter != tail; nodeIter = nodeIter->getNext())
+            {
+                if (nodeIter->getDataConst()
+                  > nodeIter->getNext()->getDataConst())
+                {
+                    swap(nodeIter, nodeIter->getNext());
+                    isSorted = false;
+                }
+            }
+        }    
+    }
+
+    template <typename T>
+    void List<T>::sortMergeSort()
+    {
+        if (length == 0 || length == 1)
+            return;
+        *this = mergeSortUtil(*this, 0, length - 1);
+    }
+
+    template <typename T>
     bool operator== (const List<T> &list1, const List<T> &list2)
     {
         if (list1.length != list2.length)
@@ -233,6 +352,105 @@ namespace datastructures_mounir
         }
         return true;
     }
+
+    template <typename T>
+    typename List<T>::ListNode *List<T>::getNodeByIndex(int index) const
+    {
+        //The function assumes that the index is always a valid value
+        //since the function is private and only called from within the
+        //list class.
+        int midIndex = ceil(static_cast<double>(length) / 2);
+        if (index < midIndex) //First half.
+        {
+            List<T>::ListNode *nodeIter = head;
+            for (int i = 0; i < index; i++)
+            {
+                nodeIter = nodeIter->getNext();
+            }
+            return nodeIter;
+        }
+        else //Second half.
+        {
+            List<T>::ListNode *nodeIter = tail;
+            for (int i = length - 1; i > index; i--)
+            {
+                nodeIter = nodeIter->getPrevious();
+            }
+            return nodeIter;
+        }
+    }
+
+    template <typename T>
+    void List<T>::swap(const typename List<T>::ListNode &node1,
+                       const typename List<T>::ListNode &node2)
+    {
+        T temp = node1->getDataConst();
+        node1->setData(node2->getData());
+        node2->setData(temp);
+    }
+
+    template <typename T>
+    List<T> List<T>::mergeSortUtil(const List<T> &list, int minIndex, int maxIndex) const
+    {
+        if (minIndex == maxIndex)
+        {
+            List<T> oneElementList;
+            oneElementList.pushBack(list.getNodeByIndex(minIndex)->getDataConst());
+            return oneElementList;
+        }
+        else
+        {
+            //The static cast to double is to force the mid element to be always
+            //the first element in the second half similar to the binary search work.
+            //Doing it the other way is fine but I prefered it this way for consistency.
+            int midIndex = ceil(static_cast<double>(minIndex + maxIndex) / 2);
+            //First half.
+            //When length is even, it will be length / 2
+            //When length is odd, it will be length /2 integer division
+            //in other words, smaller than the second half by 1.
+            List<T> sortedList1 = mergeSortUtil(list, minIndex, midIndex - 1);
+            //Second half.
+            //When length is even, it will be length / 2
+            //When length is odd, it will be ceil (length / 2)
+            //in other words, bigger than the first half by 1.
+            List<T> sortedList2 = mergeSortUtil(list, midIndex, maxIndex);
+            List<T> sortedGroupList = merge(sortedList1, sortedList2);
+            return sortedGroupList;
+        }
+    }
+
+    template <typename T>
+    List<T> List<T>::merge(const List<T> &list1, const List<T> &list2) const
+    {
+        List<T> groupList;
+        List<T>::ListNode *nodeIter1 = list1.head;
+        List<T>::ListNode *nodeIter2 = list2.head;
+        while ((nodeIter1 != list1.endNode) && (nodeIter2 != list2.endNode))
+        {
+            if (nodeIter1->getDataConst() <= nodeIter2->getDataConst())
+            {
+                groupList.pushBack(nodeIter1->getDataConst());
+                nodeIter1 = nodeIter1->getNext();
+            }
+            else
+            {
+                groupList.pushBack(nodeIter2->getDataConst());
+                nodeIter2 = nodeIter2->getNext();
+            }
+        }
+
+        while (nodeIter1 != list1.endNode)
+        {
+            groupList.pushBack(nodeIter1->getDataConst());
+            nodeIter1 = nodeIter1->getNext();
+        }
+        while (nodeIter2 != list2.endNode)
+        {
+            groupList.pushBack(nodeIter2->getDataConst());
+            nodeIter2 = nodeIter2->getNext();
+        }
+        return groupList;
+    }   
 
     template <typename T>
     List<T>::ListNode::ListNode()
