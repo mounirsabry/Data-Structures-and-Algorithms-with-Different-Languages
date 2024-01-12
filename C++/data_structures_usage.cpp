@@ -337,6 +337,7 @@ int main()
     std::cout << std::endl << "List Testing end." << std::endl << std::endl;
     */
     //List swap, sorting, and searching.
+    /*
     std::cout << "List Testing Begin." << std::endl << std::endl;
     List<int> list1;
     fillIntListRandomLimits(list1, 10, generator, START_LIMIT, END_LIMIT);
@@ -390,6 +391,7 @@ int main()
         std::cout << "The key is not in the list." << std::endl;
     std::cout << std::endl;
     std::cout << "List Testing End." << std::endl;
+    */
     /* std::cout << "Stack Testing Begin." << std::endl << std::endl;
 
     Stack<int> stack;
@@ -442,6 +444,17 @@ int main()
     printQueue(queue);
 
     std::cout << std::endl << "Queue Testing End." << std::endl << std::endl; */
+
+    Vector<int> vect1;
+    vect1.pushBack(187);
+    vect1.pushBack(54);
+    vect1.pushBack(30);
+    vect1.pushBack(11);
+    vect1.pushBack(22);
+    std::cout << vect1 << std::endl;
+    vect1.sortQuickSort();
+    std::cout << vect1 << std::endl;
+    
 
     std::cout << "End of program." << std::endl;
     std::cout << "------------------------------" << std::endl;

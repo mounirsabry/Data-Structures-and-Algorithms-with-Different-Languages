@@ -418,15 +418,15 @@ namespace datastructures_mounir
         //the range [minIndex, maxIndex].
         while (i <= j)
         {
-            while (array[i] <= array[pivotIndex])
+            while (i <= maxIndex && array[i] <= array[pivotIndex])
                 i++;
-            while (array[j] > array[pivotIndex]) 
+            while (j >= minIndex && array[j] > array[pivotIndex]) 
                 j--;
             if (i <= j)
                 swap(array[i], array[j]);
         }
         int sortedPosition = pivotIndex;
-        if (j >= minIndex && j <= maxIndex && j != pivotIndex)
+        if (j != pivotIndex)
         {
             sortedPosition = j;
             swap(array[pivotIndex], array[sortedPosition]);
