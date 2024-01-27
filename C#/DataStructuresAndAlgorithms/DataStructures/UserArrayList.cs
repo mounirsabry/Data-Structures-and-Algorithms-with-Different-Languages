@@ -51,7 +51,7 @@ namespace Mounir_DataStructures
             if (GetType() != otherList.GetType())
                 throw new InvalidCastException("The list is not of type UserArrayList");
             UserArrayList<T> otherArray = (UserArrayList<T>)otherList;
-            
+
             length = otherArray.length;
             array = [];
             GrowArray(otherArray.Capacity);
@@ -80,6 +80,12 @@ namespace Mounir_DataStructures
             {
                 newArray[i] = array[i];
             }
+        }
+
+        public object Clone()
+        {
+            UserArrayList<T> clone = new(this);
+            return clone;
         }
 
         public override string? ToString()

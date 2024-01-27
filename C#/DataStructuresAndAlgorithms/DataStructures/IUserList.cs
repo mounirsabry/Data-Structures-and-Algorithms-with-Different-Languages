@@ -1,7 +1,7 @@
 
 namespace Mounir_DataStructures
 {
-    public interface IUserList<T>
+    public interface IUserList<T> : ICloneable
     {
         public int Capacity { get; }
         public int Count { get; }

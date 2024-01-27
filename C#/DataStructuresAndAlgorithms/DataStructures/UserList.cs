@@ -4,7 +4,7 @@ namespace Mounir_DataStructures
 {
     public class UserList<T> : IUserList<T>
     {
-        private class ListNode
+        private class ListNode : ICloneable
         {
             public T? Value { get; set; }
             public ListNode? Previous { get; set; }
@@ -29,6 +29,12 @@ namespace Mounir_DataStructures
                 Value = otherNode.Value;
                 Previous = otherNode.Previous;
                 Next = otherNode.Next;
+            }
+
+            public object Clone()
+            {
+                ListNode clone = new(this);
+                return clone;
             }
 
             public override string? ToString()
@@ -119,6 +125,12 @@ namespace Mounir_DataStructures
             {
                 Add(iter.Value);
             }
+        }
+
+        public object Clone()
+        {
+            UserList<T> clone = new(this);
+            return clone;
         }
 
         public override string? ToString()
