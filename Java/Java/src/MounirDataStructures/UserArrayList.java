@@ -301,7 +301,6 @@ public class UserArrayList<T> implements UserList<T> {
             subList[0] = array[minIndex];
             return subList;
         } else {
-            //int midIndex = Math.ceil((double)(minIndex + maxIndex) / 2);
             int midIndex = (int)Math.ceil((double)(minIndex + maxIndex) / 2);
             T[] sortedArray1 = mergeSortUtil(array, minIndex, midIndex - 1, comp);
             T[] sortedArray2 = mergeSortUtil(array, midIndex, maxIndex, comp);
