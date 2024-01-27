@@ -46,6 +46,19 @@ namespace Mounir_DataStructures
             CopyArrayShallow(otherArray.array, array, length);
         }
 
+        public UserArrayList(IUserList<T> otherList)
+        {
+            if (GetType() != otherList.GetType())
+                throw new InvalidCastException("The list is not of type UserArrayList");
+            UserArrayList<T> otherArray = (UserArrayList<T>)otherList;
+            
+            length = otherArray.length;
+            array = [];
+            GrowArray(otherArray.Capacity);
+
+            CopyArrayShallow(otherArray.array, array, length);
+        }
+
         private void GrowArray(int newCapacity)
         {
             if (newCapacity <= 0 || newCapacity <= Capacity)

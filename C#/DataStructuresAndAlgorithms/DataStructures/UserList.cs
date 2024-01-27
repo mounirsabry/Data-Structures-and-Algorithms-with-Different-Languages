@@ -76,7 +76,7 @@ namespace Mounir_DataStructures
         private int length;
         private ListNode head;
         private ListNode tail;
-        private ListNode endNode;
+        private readonly ListNode endNode;
         public int Capacity
         {
             get { return length; }
@@ -102,6 +102,19 @@ namespace Mounir_DataStructures
             //and the increment will not happen.
             //If the iter is not at the endNode yet, then iter.Next will never be null, 
             //This is why I safely added the Null forgiving operator.
+            for (ListNode iter = otherList.head; iter != otherList.endNode; iter = iter.Next!)
+            {
+                Add(iter.Value);
+            }
+        }
+
+        public UserList(IUserList<T> otherAbstractList)
+        : this()
+        {
+            if (GetType() != otherAbstractList.GetType())
+                throw new InvalidCastException();
+            UserList<T> otherList = (UserList<T>)otherAbstractList;
+
             for (ListNode iter = otherList.head; iter != otherList.endNode; iter = iter.Next!)
             {
                 Add(iter.Value);
@@ -491,7 +504,7 @@ namespace Mounir_DataStructures
             var sortedList = MergeSortUtil(head, endNode, 0, length - 1, comparer);
             head = sortedList.head;
             tail = sortedList.tail;
-            endNode = sortedList.endNode;
+            endNode.Previous = sortedList.endNode.Previous;
         }
 
         private UserList<T> MergeSortUtil(ListNode startNode, ListNode endNode, int minIndex, int maxIndex, IComparer<T> comparer)
