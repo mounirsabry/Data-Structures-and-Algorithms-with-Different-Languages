@@ -39,9 +39,9 @@ namespace Mounir_DataStructures
 
         public UserArrayList(UserArrayList<T> otherArray)
         {
-            length = otherArray.length;
             array = [];
             GrowArray(otherArray.Capacity);
+            length = otherArray.length;
 
             CopyArrayShallow(otherArray.array, array, length);
         }
@@ -52,9 +52,9 @@ namespace Mounir_DataStructures
                 throw new InvalidCastException("The list is not of type UserArrayList");
             UserArrayList<T> otherArray = (UserArrayList<T>)otherList;
 
-            length = otherArray.length;
             array = [];
             GrowArray(otherArray.Capacity);
+            length = otherArray.length;
 
             CopyArrayShallow(otherArray.array, array, length);
         }
@@ -261,7 +261,7 @@ namespace Mounir_DataStructures
             if (length == 0 || length == 1)
                 return;
             //Calls the default sorting algorithm.
-            SortSelectionSort(comparer);
+            SortQuickSort(comparer);
         }
 
         public void SortSelectionSort(IComparer<T> comparer)

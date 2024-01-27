@@ -407,7 +407,7 @@ namespace Mounir_DataStructures
             if (length == 0 || length == 1)
                 return;
             //Calls the default sorting algorithm.
-            SortSelectionSort(comparer);
+            SortBubbleSort(comparer);
         }
 
         public void SortSelectionSort(IComparer<T> comparer)
