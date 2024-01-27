@@ -1,0 +1,15 @@
+D:\Mounir_Study\Post Army Revision\Data Structures and Algorithms with Different Languages\C#\DataStructuresAndAlgorithms\bin\Debug\net8.0\DataStructuresAndAlgorithms.exe
+D:\Mounir_Study\Post Army Revision\Data Structures and Algorithms with Different Languages\C#\DataStructuresAndAlgorithms\bin\Debug\net8.0\DataStructuresAndAlgorithms.deps.json
+D:\Mounir_Study\Post Army Revision\Data Structures and Algorithms with Different Languages\C#\DataStructuresAndAlgorithms\bin\Debug\net8.0\DataStructuresAndAlgorithms.runtimeconfig.json
+D:\Mounir_Study\Post Army Revision\Data Structures and Algorithms with Different Languages\C#\DataStructuresAndAlgorithms\bin\Debug\net8.0\DataStructuresAndAlgorithms.dll
+D:\Mounir_Study\Post Army Revision\Data Structures and Algorithms with Different Languages\C#\DataStructuresAndAlgorithms\bin\Debug\net8.0\DataStructuresAndAlgorithms.pdb
+D:\Mounir_Study\Post Army Revision\Data Structures and Algorithms with Different Languages\C#\DataStructuresAndAlgorithms\obj\Debug\net8.0\DataStructuresAndAlgorithms.GeneratedMSBuildEditorConfig.editorconfig
+D:\Mounir_Study\Post Army Revision\Data Structures and Algorithms with Different Languages\C#\DataStructuresAndAlgorithms\obj\Debug\net8.0\DataStructuresAndAlgorithms.AssemblyInfoInputs.cache
+D:\Mounir_Study\Post Army Revision\Data Structures and Algorithms with Different Languages\C#\DataStructuresAndAlgorithms\obj\Debug\net8.0\DataStructuresAndAlgorithms.AssemblyInfo.cs
+D:\Mounir_Study\Post Army Revision\Data Structures and Algorithms with Different Languages\C#\DataStructuresAndAlgorithms\obj\Debug\net8.0\DataStructuresAndAlgorithms.csproj.CoreCompileInputs.cache
+D:\Mounir_Study\Post Army Revision\Data Structures and Algorithms with Different Languages\C#\DataStructuresAndAlgorithms\obj\Debug\net8.0\DataStructuresAndAlgorithms.sourcelink.json
+D:\Mounir_Study\Post Army Revision\Data Structures and Algorithms with Different Languages\C#\DataStructuresAndAlgorithms\obj\Debug\net8.0\DataStructuresAndAlgorithms.dll
+D:\Mounir_Study\Post Army Revision\Data Structures and Algorithms with Different Languages\C#\DataStructuresAndAlgorithms\obj\Debug\net8.0\refint\DataStructuresAndAlgorithms.dll
+D:\Mounir_Study\Post Army Revision\Data Structures and Algorithms with Different Languages\C#\DataStructuresAndAlgorithms\obj\Debug\net8.0\DataStructuresAndAlgorithms.pdb
+D:\Mounir_Study\Post Army Revision\Data Structures and Algorithms with Different Languages\C#\DataStructuresAndAlgorithms\obj\Debug\net8.0\DataStructuresAndAlgorithms.genruntimeconfig.cache
+D:\Mounir_Study\Post Army Revision\Data Structures and Algorithms with Different Languages\C#\DataStructuresAndAlgorithms\obj\Debug\net8.0\ref\DataStructuresAndAlgorithms.dll
