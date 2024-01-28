@@ -221,7 +221,7 @@ namespace Mounir_DataStructures
         }
 
         /*
-            The user attempted to enhance the performance of the navigating by starting
+            We attempted to enhance the performance of the navigating by starting
             from the end that is closer to the index.
             Effectively dividing the average distance to reach the node by two.
         */
@@ -309,17 +309,24 @@ namespace Mounir_DataStructures
             //Insertion at the end of the list.
             ListNode newNode = new(item, tail, endNode);
 
-            endNode.Previous = newNode;
-            tail = newNode;
-            
-            if (length == 0) //List was empty
+            if (length == 0)
+            {
+                endNode.Previous = newNode;
                 head = newNode;
+                tail = newNode;
+            }
+            else
+            {
+                endNode.Previous = newNode;
+                tail.Next = newNode;
+                tail = newNode;
+            }
             length++;
         }
 
         public bool Insert(int index, T? item)
         {
-            if (index < 0 || index >= length)
+            if (index < 0 || index > length) //length index could be used to add items at the end of the list.
                 return false;
 
             ListNode indexNode = NavigateToNodeByIndex(index);

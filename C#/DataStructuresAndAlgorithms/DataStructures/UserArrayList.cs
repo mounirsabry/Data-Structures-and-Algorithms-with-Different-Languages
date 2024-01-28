@@ -342,7 +342,7 @@ namespace Mounir_DataStructures
             {
                 while (i <= maxIndex && comparer.Compare(array[i], array[pivotIndex]) <= 0)
                     i++;
-                while (j >= minIndex && comparer.Compare(array[i], array[pivotIndex]) > 0)
+                while (j >= minIndex && comparer.Compare(array[j], array[pivotIndex]) > 0)
                     j--;
 
                 if (i <= j)
