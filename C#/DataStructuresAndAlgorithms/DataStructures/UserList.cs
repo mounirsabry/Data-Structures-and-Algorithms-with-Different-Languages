@@ -307,7 +307,7 @@ namespace Mounir_DataStructures
         public void Add(T? item)
         {
             //Insertion at the end of the list.
-            ListNode newNode = new(item, tail, endNode);
+            ListNode newNode = new(item, endNode.Previous, endNode);
 
             if (length == 0)
             {
@@ -349,8 +349,7 @@ namespace Mounir_DataStructures
             }
             else if (indexNode == endNode) //Insertion at the end of the list, after the indexNode.
             {
-                //Save null forgiving operator.
-                endNode.Previous!.Next = newNode;
+                endNode.Previous = newNode;
                 tail.Next = newNode;
                 tail = newNode;
             }
@@ -488,7 +487,7 @@ namespace Mounir_DataStructures
                 return;
 
             ListNode iNode = startNode;
-            ListNode jNode = endNode;
+            ListNode jNode = endNode.Previous!;
             ListNode pivotNode = startNode; //Could be any another value.
 
             while (iNode.Previous != jNode && iNode != jNode)
@@ -496,7 +495,7 @@ namespace Mounir_DataStructures
                 while (iNode!.Next != endNode && comparer.Compare(iNode.Value, pivotNode.Value) <= 0)
                     iNode = iNode.Next!;
                 
-                while (jNode.Previous != null && jNode.Previous != startNode &&
+                while (jNode.Previous != null && jNode.Next != startNode &&
                        comparer.Compare(jNode.Value, pivotNode.Value) > 0)
                     jNode = jNode.Previous;
 
@@ -523,12 +522,13 @@ namespace Mounir_DataStructures
             var sortedList = MergeSortUtil(head, endNode, 0, length - 1, comparer);
             head = sortedList.head;
             tail = sortedList.tail;
-            endNode.Previous = sortedList.endNode.Previous;
+            endNode.Previous = tail;
+            tail.Next = endNode;
         }
 
         private UserList<T> MergeSortUtil(ListNode startNode, ListNode endNode, int minIndex, int maxIndex, IComparer<T> comparer)
         {
-            if (startNode == endNode)
+            if (startNode.Next == endNode)
             {
                 UserList<T> subList = new();
                 subList.Add(startNode.Value);
@@ -571,7 +571,7 @@ namespace Mounir_DataStructures
                 groupList.Add(iter1.Value);
                 iter1 = iter1.Next!;
             }
-            while (iter1 != list2.endNode)
+            while (iter2 != list2.endNode)
             {
                 groupList.Add(iter2.Value);
                 iter2 = iter2.Next!;

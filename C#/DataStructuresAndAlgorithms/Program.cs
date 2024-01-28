@@ -197,8 +197,7 @@ void TestUserList1(int minGeneratedValue, int maxGeneratedValue)
 
     list3Copy3.SortQuickSort(comparer);
     Console.WriteLine("Quick Sort: " + list3Copy3);
-    /*
+    
     list3Copy4.SortMergeSort(comparer);
     Console.WriteLine("Merge Sort: " + list3Copy4);
-    */
 }
