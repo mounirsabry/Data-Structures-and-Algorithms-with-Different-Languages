@@ -3,8 +3,15 @@ using Mounir_DataStructures;
 
 const int MIN_VALUE = 0;
 const int MAX_VALUE = 50;
-//TetUserArrayList1(MIN_VALUE, MAX_VALUE);
-TestUserList1(MIN_VALUE, MAX_VALUE);
+//TestUserArrayList1(MIN_VALUE, MAX_VALUE);
+//TestUserList1(MIN_VALUE, MAX_VALUE);
+IUserList<int> list = new UserArrayList<int>();
+list.Add(1);
+list.Add(2);
+for (var item in list)
+{
+    
+}
 
 #pragma warning disable CS8321 // Disables unused functions warnings for all functions.
 void TestUserArrayList1(int minGeneratedValue, int maxGeneratedValue)
@@ -54,7 +61,14 @@ void TestUserArrayList1(int minGeneratedValue, int maxGeneratedValue)
     Console.WriteLine("list1 hashcode: " + list1.GetHashCode());
     Console.WriteLine("list2 hashcode: " + list2.GetHashCode());
 
+    Console.WriteLine("Testing [] functions.");
+    Console.WriteLine("list2[0]: " + list2[0]);
+    Console.WriteLine("list2[5]: " + list2[5]);
+    Console.WriteLine("Setting some values in list2.");
+    list2[4] = 33;
+    list2[5] = 55;
     Console.WriteLine("list2: " + list2);
+
     Console.WriteLine("Remvoing some data from list2.");
     list2.Remove(10);
     list2.Remove(22);
@@ -150,8 +164,15 @@ void TestUserList1(int minGeneratedValue, int maxGeneratedValue)
     Console.WriteLine("Is list1 Equals list2: " + list1.Equals(list2));
     Console.WriteLine("list1 hashcode: " + list1.GetHashCode());
     Console.WriteLine("list2 hashcode: " + list2.GetHashCode());
-    
+
+    Console.WriteLine("Testing [] functions.");
+    Console.WriteLine("list2[0]: " + list2[0]);
+    Console.WriteLine("list2[5]: " + list2[5]);
+    Console.WriteLine("Setting some values in list2.");
+    list2[4] = 33;
+    list2[5] = 55;
     Console.WriteLine("list2: " + list2);
+    
     Console.WriteLine("Remvoing some data from list2.");
     list2.Remove(10);
     list2.Remove(22);

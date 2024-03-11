@@ -10,6 +10,8 @@ namespace Mounir_DataStructures
         int GetHashCode();
         public void Clear();
         public bool IsEmpty();
+
+        public T? this[int index] { get; set; }
         public T? Front();
         public T? Back();
         public int GetIndex(T? key);

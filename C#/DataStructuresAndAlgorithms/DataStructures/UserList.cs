@@ -204,6 +204,12 @@ namespace Mounir_DataStructures
             return length == 0;
         }
 
+        public T? this[int index]
+        {
+            get { return Get(index); }
+            set { Set(index, value); }
+        }
+
         public T? Front()
         {
             if (length == 0)
