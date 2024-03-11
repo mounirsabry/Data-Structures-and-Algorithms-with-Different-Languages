@@ -8,10 +8,6 @@ const int MAX_VALUE = 50;
 IUserList<int> list = new UserArrayList<int>();
 list.Add(1);
 list.Add(2);
-for (var item in list)
-{
-    
-}
 
 #pragma warning disable CS8321 // Disables unused functions warnings for all functions.
 void TestUserArrayList1(int minGeneratedValue, int maxGeneratedValue)
