@@ -6,16 +6,16 @@ import MounirDataStructures.*;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        System.out.println("Hello, World!");
+        // System.out.println("Hello, World!");
 
-        List<Integer> list = new ArrayList<>();
-        list.add(1);
-        list.add(2);
-        System.out.println(list);
-        System.out.println(list.toString());
-        System.out.println();
+        // List<Integer> list = new ArrayList<>();
+        // list.add(1);
+        // list.add(2);
+        // System.out.println(list);
+        // System.out.println(list.toString());
+        // System.out.println();
 
-        //testUserArrayList1();
+        testUserArrayList1();
         //testUserArrayList1Iterators();
 
         /*
@@ -51,7 +51,7 @@ public class App {
         }
         */
 
-        testUserLinkedList1();
+        //testUserLinkedList1();
         //testUserLinkedListIterators1();
         //testUserStack1();
         //testUserQueue1();
